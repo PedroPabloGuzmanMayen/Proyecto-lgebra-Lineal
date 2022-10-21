@@ -1,5 +1,15 @@
-import numpy as np
+'''
+Proyecto de Álgebra Lineal
 
+Pedro Pablo Guzmán Mayen 22111
+Gustavo Adolfo Cruz Bardales 22779
+Javier Andrés Chen González 22779
+José Antonio Mérida Castejón 201105
+Luis Fernando Mendoza Álvarez 19644
+
+'''
+import numpy as np
+import sys
 num = int(input("De que tamaño quieres que sea la matriz: "))
 while num < 3:
     print("Solo se aceptan matrices qur tengan un tamaño mayor o igual a 3, intenta de nuevo")
@@ -38,6 +48,7 @@ def generateSubMatrix(lista, numero):
 generateSubMatrix(matrix_list, num)
 
 #Siempre la matriz 1 de la pirámide (ver libro) debe ser la matriz que ya tenemos, por lo que se cambia el valor 1 de la lista a la matriz brindada por el usuario.
+#main_array = main_array+main_array[1,1]
 matrix_list[1] = main_array
 
 #Esta función genera el determinante
@@ -49,13 +60,28 @@ def genrateDeterminant(lista, numero):
             #Recorre cada columna de la matriz dada
             for k in range(len(lista[i])):
                 #Este if verifica si se divide por 0
-                if int(lista[i-2][j+1,k+1]) == 0:
-                    pass
+                    #np.where(main_array == 0)
+                    p = int(lista[i-2][j+1,k+1])
+                    if p == 0:
+                        #print(main_array+2*main_array[3,3])    
+                        a = int(np.linalg.det(main_array))
+                        print()
+                        print("El determinante de la matriz es: "+str(a))
+                        
+                        print(main_array)
+                        #print("El determinante es: "+str(a))
+                        sys.exit(1)
+                        break
+                        
+                    elif p != 0:    
+                        #lista[i-2][j+1,k+1] = lista[i-2][j+1,k+1] + lista[i-2][j,k]
                 #Se cambia el valor de cada entrada de la matriz dada. 
-                lista[i][j,k] = int(int(lista[i-1][j,k]*lista[i-1][j+1,k+1]-lista[i-1][j+1,k]*lista[i-1][j,k+1])/int(lista[i-2][j+1,k+1]))
+                        lista[i][j,k] = int(int(lista[i-1][j,k]*lista[i-1][j+1,k+1]-lista[i-1][j+1,k]*lista[i-1][j,k+1])/p)
 
 
 #Usar la función con las variables
 genrateDeterminant(matrix_list, num)
 #Dar el resultado
-print("El determinante de la matriz es: " + str(matrix_list[num][0,0]))
+print("El determinante de la matriz es: " + str(int(matrix_list[num][0,0])))
+print()
+print(main_array)
